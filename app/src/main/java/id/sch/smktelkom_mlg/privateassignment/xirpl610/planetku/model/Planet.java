@@ -1,5 +1,7 @@
 package id.sch.smktelkom_mlg.privateassignment.xirpl610.planetku.model;
 
+import java.util.List;
+
 /**
  * Created by diniristanti on 10/05/2017.
  */
@@ -18,4 +20,6 @@ public class Planet {
     public String url;
     public String urlToImage;
     public String publishedAt;
+    public int color;
+    public List<String> sortBysAvailable;
 }

@@ -7,17 +7,26 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import id.sch.smktelkom_mlg.privateassignment.xirpl610.planetku.adapter.PlanetArticle;
 import id.sch.smktelkom_mlg.privateassignment.xirpl610.planetku.model.Planet;
+import id.sch.smktelkom_mlg.privateassignment.xirpl610.planetku.model.PlanetResponse;
+import id.sch.smktelkom_mlg.privateassignment.xirpl610.planetku.service.GsonGetRequest;
+import id.sch.smktelkom_mlg.privateassignment.xirpl610.planetku.service.VolleySingleton;
 
 public class MainActivity extends AppCompatActivity implements PlanetArticle.IArticleAdapter {
     public static final String SOURCEID = "sourceId";
@@ -47,7 +56,48 @@ public class MainActivity extends AppCompatActivity implements PlanetArticle.IAr
         setContentView(R.layout.activity_main);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        mAdapter = new PlanetArticle(this, mList);
+        recyclerView.setAdapter(mAdapter);
 
+        setTitle("Planetaria");
+
+        downloadDataSource();
+    }
+
+    private void downloadDataSource() {
+
+        String url = "";
+
+        GsonGetRequest<PlanetResponse> myRequest = new GsonGetRequest<PlanetResponse>
+                (url, PlanetResponse.class, null, new Response.Listener<PlanetResponse>() {
+
+                    @Override
+                    public void onResponse(PlanetResponse response) {
+                        Log.d("FLOW", "onResponse: " + (new Gson().toJson(response)));
+                        if (response.status.equals("ok")) {
+                            fillColor(response.planet);
+                            mList.addAll(response.planet);
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("FLOW", "onErrorResponse: ", error);
+                    }
+
+
+                });
+        VolleySingleton.getInstance(this).addToRequestQueue(myRequest);
+    }
+
+    private void fillColor(List<Planet> planet) {
+        for (int i = 0; i < planet.size(); i++)
+            planet.get(i).color = kaler.getRandomColor();
     }
 
 
@@ -107,8 +157,6 @@ public class MainActivity extends AppCompatActivity implements PlanetArticle.IAr
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
             return rootView;
         }
     }
@@ -127,7 +175,10 @@ public class MainActivity extends AppCompatActivity implements PlanetArticle.IAr
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            if (position == 1)
+                return new RoketFragment();
+            else
+                return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override

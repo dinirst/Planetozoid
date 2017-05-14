@@ -12,8 +12,6 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import javax.xml.transform.Source;
-
 import id.sch.smktelkom_mlg.privateassignment.xirpl610.planetku.R;
 import id.sch.smktelkom_mlg.privateassignment.xirpl610.planetku.model.Planet;
 
@@ -26,7 +24,7 @@ public class PlanetArticle extends RecyclerView.Adapter<PlanetArticle.ViewHolder
     IArticleAdapter mIPlanetArticle;
     Context context;
 
-    public PlanetArticle(Context context, ArrayList<Source> list) {
+    public PlanetArticle(Context context, ArrayList<Planet> list) {
         this.list = list;
         this.context = context;
         mIPlanetArticle = (IArticleAdapter) context;
