@@ -28,6 +28,8 @@ Screenshots <br>
 <p align = "center">
 <img src=" https://cloud.githubusercontent.com/assets/22124865/26035967/75300c96-38ff-11e7-83dc-6b07d517aced.png" width="350"/><br>
 <img src=" https://cloud.githubusercontent.com/assets/22124865/26035970/7e9062b8-38ff-11e7-83e7-bc12d2bdbe87.png" width="350"/><br>
+</p>
+<p>
 <img src=" https://cloud.githubusercontent.com/assets/22124865/26036113/24f02d80-3902-11e7-9f99-fdbdf84c30b4.png" width="350"/> <br>
 </p>
 
