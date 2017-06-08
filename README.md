@@ -1,5 +1,5 @@
 <h2>See My Film</h2><br>
-Link File APK release dari Aplikasi : https://drive.google.com/open?id=0B77fv1NIKlJ7cTNPRnVSWHc0cXM <br><br>
+Link File APK release dari Aplikasi : [Download Aplikasi](https://drive.google.com/uc?export=download&id=0B77fv1NIKlJ7cTNPRnVSWHc0cXM)<br><br>
 Identitas : <br>
 Nama          : Dini Eka Ristanti <br>
 Kelas/ Absen  : XIR6 / 10 <br>
